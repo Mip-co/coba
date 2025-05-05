@@ -69,13 +69,18 @@
      </div>
     </div>
    </section>
-   <form class="mt-10 max-w-3xl mx-auto flex justify-center space-x-4" onsubmit="setCountdown(event)" style="display: none;">
-    <label for="countdownDate" class="sr-only">Set Countdown Date and Time</label>
-    <input id="countdownDate" type="datetime-local" class="rounded-full border border-white border-opacity-40 bg-transparent px-5 py-2 text-white placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-blue-500" required/>
-    <button class="rounded-full bg-blue-600 hover:bg-blue-700 transition-colors text-white px-6 py-2 text-sm sm:text-base font-medium" type="submit">
-     Set Countdown
-    </button>
-</form>
+   <button id="toggleFormButton" class="rounded-full bg-blue-600 hover:bg-blue-700 transition-colors text-white px-6 py-2 text-sm sm:text-base font-medium mt-6">
+    Show Form
+  </button>
+  
+  <form id="countdownForm" class="mt-10 max-w-3xl mx-auto flex justify-center space-x-4" onsubmit="setCountdown(event)" style="display: none;">
+      <label for="countdownDate" class="sr-only">Set Countdown Date and Time</label>
+      <input id="countdownDate" type="datetime-local" class="rounded-full border border-white border-opacity-40 bg-transparent px-5 py-2 text-white placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-blue-500" required/>
+      <button class="rounded-full bg-blue-600 hover:bg-blue-700 transition-colors text-white px-6 py-2 text-sm sm:text-base font-medium" type="submit">
+       Set Countdown
+      </button>
+  </form>
+
    <form class="mt-6 max-w-3xl mx-auto flex" onsubmit="event.preventDefault();">
     <input class="flex-grow rounded-full border border-white border-opacity-40 bg-transparent px-5 py-2 text-white placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Email Address" required="" type="email"/>
     <button class="ml-4 rounded-full bg-blue-600 hover:bg-blue-700 transition-colors text-white px-6 py-2 text-sm sm:text-base font-medium" type="submit">
@@ -84,6 +89,18 @@
    </form>
   </main>
   <script>
+     const toggleFormButton = document.getElementById('toggleFormButton');
+    const countdownForm = document.getElementById('countdownForm');
+  
+    toggleFormButton.addEventListener('click', () => {
+      if (countdownForm.style.display === 'none') {
+        countdownForm.style.display = 'flex'; // Show the form
+        toggleFormButton.textContent = 'Hide Form';
+      } else {
+        countdownForm.style.display = 'none'; // Hide the form
+        toggleFormButton.textContent = 'Show Form';
+      }
+    });
    const STORAGE_KEY = "comingSoonCountdownEnd";
 
    // Get stored countdown end time or null
