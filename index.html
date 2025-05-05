@@ -1,0 +1,193 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Coming Soon
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+  </style>
+ </head>
+ <body class="min-h-screen flex flex-col items-center justify-center bg-[#5a0f4a] font-['Roboto'] relative overflow-hidden px-6 py-10">
+  <img alt="Dark purple palm leaves background pattern" class="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none select-none" height="1080" src="https://storage.googleapis.com/a1aa/image/1d7de041-2612-4e1c-836f-6092c58a5daf.jpg" width="1920"/>
+  <main class="relative z-10 text-center max-w-4xl w-full py-20 bg-[#5a0f4a] bg-opacity-90 rounded-lg">
+   <div class="text-white flex flex-col items-center space-y-4">
+    <img src="1571398265609.png" width="100" height="auto" />
+    <h1 class="font-extrabold text-3xl sm:text-4xl uppercase">
+      MENUJU PENGUMUMAN KELULUSAN KELAS XII ANGKATAN 26
+    </h1>
+    <p class="text-sm sm:text-base max-w-xl">
+      SMA NEGERI 1 CIAMPEA
+    </p>
+   </div>
+   <section class="mt-10 border border-white border-opacity-40 rounded-md max-w-4xl mx-auto flex justify-center items-center text-white text-center select-none" style="user-select:none;">
+    <div class="flex items-baseline px-8 py-6 space-x-2 sm:space-x-4">
+     <div>
+      <p id="days" class="text-4xl sm:text-5xl font-light leading-none">
+       35
+      </p>
+      <p class="text-xs italic font-light mt-1">
+       Days
+      </p>
+     </div>
+     <p class="text-4xl sm:text-5xl font-light leading-none">
+      :
+     </p>
+     <div>
+      <p id="hours" class="text-4xl sm:text-5xl font-light leading-none">
+       17
+      </p>
+      <p class="text-xs italic font-light mt-1">
+       Hours
+      </p>
+     </div>
+     <p class="text-4xl sm:text-5xl font-light leading-none">
+      :
+     </p>
+     <div>
+      <p id="minutes" class="text-4xl sm:text-5xl font-light leading-none">
+       59
+      </p>
+      <p class="text-xs italic font-light mt-1">
+       Minutes
+      </p>
+     </div>
+     <p class="text-4xl sm:text-5xl font-light leading-none">
+      :
+     </p>
+     <div>
+      <p id="seconds" class="text-4xl sm:text-5xl font-light leading-none">
+       56
+      </p>
+      <p class="text-xs italic font-light mt-1">
+       Seconds
+      </p>
+     </div>
+    </div>
+   </section>
+   <form class="mt-10 max-w-3xl mx-auto flex justify-center space-x-4" onsubmit="setCountdown(event)" style="display: none;">
+    <label for="countdownDate" class="sr-only">Set Countdown Date and Time</label>
+    <input id="countdownDate" type="datetime-local" class="rounded-full border border-white border-opacity-40 bg-transparent px-5 py-2 text-white placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-blue-500" required/>
+    <button class="rounded-full bg-blue-600 hover:bg-blue-700 transition-colors text-white px-6 py-2 text-sm sm:text-base font-medium" type="submit">
+     Set Countdown
+    </button>
+</form>
+   <form class="mt-6 max-w-3xl mx-auto flex" onsubmit="event.preventDefault();">
+    <input class="flex-grow rounded-full border border-white border-opacity-40 bg-transparent px-5 py-2 text-white placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Email Address" required="" type="email"/>
+    <button class="ml-4 rounded-full bg-blue-600 hover:bg-blue-700 transition-colors text-white px-6 py-2 text-sm sm:text-base font-medium" type="submit">
+     Notify Me
+    </button>
+   </form>
+  </main>
+  <script>
+   const STORAGE_KEY = "comingSoonCountdownEnd";
+
+   // Get stored countdown end time or null
+   let countdownEnd = localStorage.getItem(STORAGE_KEY);
+   if (countdownEnd) {
+     countdownEnd = new Date(countdownEnd);
+   } else {
+     countdownEnd = null;
+   }
+
+   // Update countdown display
+   function updateCountdown() {
+     if (!countdownEnd) {
+       resetCountdownDisplay();
+       return;
+     }
+
+     const now = new Date().getTime();
+     const distance = countdownEnd.getTime() - now;
+
+     if (now < countdownEnd.getTime() && now < countdownStart.getTime()) {
+       // Before countdown start time, reset display
+       resetCountdownDisplay();
+       return;
+     }
+
+     if (distance < 0) {
+       // Countdown finished
+       resetCountdownDisplay();
+       clearInterval(interval);
+       localStorage.removeItem(STORAGE_KEY);
+       localStorage.removeItem(STORAGE_START_KEY);
+       countdownEnd = null;
+       countdownStart = null;
+       return;
+     }
+
+     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+     document.getElementById("days").textContent = days;
+     document.getElementById("hours").textContent = hours;
+     document.getElementById("minutes").textContent = minutes;
+     document.getElementById("seconds").textContent = seconds;
+   }
+
+   // Reset countdown display to zeros
+   function resetCountdownDisplay() {
+     document.getElementById("days").textContent = "0";
+     document.getElementById("hours").textContent = "0";
+     document.getElementById("minutes").textContent = "0";
+     document.getElementById("seconds").textContent = "0";
+   }
+
+   // Set countdown from input
+   const STORAGE_START_KEY = "comingSoonCountdownStart";
+
+   let countdownStart = localStorage.getItem(STORAGE_START_KEY);
+   if (countdownStart) {
+     countdownStart = new Date(countdownStart);
+   } else {
+     countdownStart = null;
+   }
+
+   function setCountdown(event) {
+     event.preventDefault();
+     const input = document.getElementById("countdownDate");
+     const selectedDate = new Date(input.value);
+     const now = new Date();
+
+     if (selectedDate <= now) {
+       alert("Please select a future date and time.");
+       return;
+     }
+
+     // Set countdown start as now, countdown end as selectedDate
+     countdownStart = now;
+     countdownEnd = selectedDate;
+
+     localStorage.setItem(STORAGE_START_KEY, countdownStart.toISOString());
+     localStorage.setItem(STORAGE_KEY, countdownEnd.toISOString());
+
+     updateCountdown();
+     if (!interval) {
+       interval = setInterval(updateCountdown, 1000);
+     }
+   }
+
+   // Initialize input with stored date if exists
+   if (countdownEnd) {
+     const localISOTime = countdownEnd.toISOString().slice(0,16);
+     document.getElementById("countdownDate").value = localISOTime;
+   }
+
+   // On page load, if countdownEnd and countdownStart exist, start countdown only if now >= countdownStart
+   const now = new Date();
+   if (!countdownEnd || !countdownStart || now < countdownStart) {
+     resetCountdownDisplay();
+   }
+
+   updateCountdown();
+   let interval = setInterval(updateCountdown, 1000);
+  </script>
+ </body>
+</html>
